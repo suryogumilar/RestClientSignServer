@@ -1,0 +1,4 @@
+server:
+  servlet:
+    context-path: "/singserver/rest/v1"
+  port: 8089
