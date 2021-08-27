@@ -3,12 +3,12 @@ package sg.lab.RestClientSignServer.routes;
 import org.apache.camel.builder.RouteBuilder;
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class OurFirstTimeRouter extends RouteBuilder{
 
 	@Override
 	public void configure() throws Exception {
-		from("timer:our-first-timer")
+		from("timer:our-first-timer?period=10000")
 		.transform().constant("This is Our Message")
 		.to("log:our-first-timer-log");
 	}

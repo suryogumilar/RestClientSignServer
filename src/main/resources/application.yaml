@@ -1,4 +1,14 @@
 server:
+  port: 8089
   servlet:
     context-path: "/singserver/rest/v1"
-  port: 8089
+
+spring:
+  main: 
+    banner-mode: "off"
+  activemq:
+    broker-url:tcp://127.0.0.1:61616
+    
+camel:
+  springboot:
+    :main-run-controller: true
