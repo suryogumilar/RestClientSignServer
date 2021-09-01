@@ -55,13 +55,8 @@
 			<artifactId>camel-jackson-starter</artifactId>
 			<version>${camel.version}</version>
 		</dependency>
-		<!-- 
-		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-swagger-java-starter</artifactId>
-			<version>3.0.0-RC3</version>
-		</dependency>
-		 -->
+		<!-- <dependency> <groupId>org.apache.camel</groupId> <artifactId>camel-swagger-java-starter</artifactId> 
+			<version>3.0.0-RC3</version> </dependency> -->
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-servlet</artifactId>
@@ -81,6 +76,12 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<version>${spring-boot.version}</version>
 			<scope>test</scope>
+		</dependency>
+		<!-- for sign server ws -->
+		<dependency>
+			<groupId>sg.lab</groupId>
+			<artifactId>WSClientSignServer</artifactId>
+			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
 	<build>
