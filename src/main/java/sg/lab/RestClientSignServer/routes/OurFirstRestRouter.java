@@ -8,14 +8,18 @@ import org.apache.camel.builder.RouteBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.apache.camel.model.rest.RestBindingMode;
+import org.apache.cxf.service.factory.ServiceConstructionException;
 import org.signserver.clientws.InternalServerException_Exception;
 import org.signserver.clientws.RequestFailedException_Exception;
+import javax.wsdl.WSDLException;
+import javax.xml.ws.WebServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import sg.lab.RestClientSignServer.component.OurGetCurrentTime;
 import sg.lab.RestClientSignServer.iface.SignServerWsServiceInterface;
 import sg.lab.RestClientSignServer.model.ProcessSod;
+import sg.lab.RestClientSignServer.model.ProcessSodException;
 import sg.lab.RestClientSignServer.model.ProcessSodResponse;
 
 @Component
@@ -74,14 +78,57 @@ public class OurFirstRestRouter extends RouteBuilder{
 			exchange.getMessage().setBody(sodRequest);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
-			exchange.setException(e);
+			//exchange.setException(e);
+			setExceptionMessage(e, exchange);
 		} catch (RequestFailedException_Exception e) {
 			e.printStackTrace();
-			exchange.setException(e);
+			//exchange.setException(e);
+			setExceptionMessage(e, exchange);
 		} catch (InternalServerException_Exception e) {
 			e.printStackTrace();
-			exchange.setException(e);
+			//exchange.setException(e);
+			setExceptionMessage(e, exchange);
+		}catch (ServiceConstructionException e) {
+			e.printStackTrace();
+			//exchange.setException(e);
+			setExceptionMessage(e, exchange);
+		}catch(WebServiceException e) {
+			e.printStackTrace();
+			//exchange.setException(e);
+			setExceptionMessage(e, exchange);
 		}
 		
+	}
+	private void setExceptionMessage(Exception e, Exchange exchange) {
+		Throwable cause = e.getCause();
+		ProcessSodException soe = new ProcessSodException();
+		soe.setFaultString(e.getMessage());
+		soe.setCauseString("");
+		if(cause!=null) {
+			if(cause instanceof ServiceConstructionException) {
+				ServiceConstructionException sce = (ServiceConstructionException)cause;
+				if(null != sce.getCause() && sce.getCause() instanceof WebServiceException) {
+					WebServiceException wse = (WebServiceException) sce.getCause();
+					if(null != wse.getCause() && wse.getCause() instanceof WSDLException) {
+						WSDLException wdslexc = (WSDLException) wse.getCause();
+						soe.setCauseString(wdslexc.getMessage());
+					}else {
+						soe.setCauseString(wse.getMessage());						
+					}
+				}else if(null != sce.getCause() && sce.getCause() instanceof WSDLException){
+					WSDLException wdslexc = (WSDLException) sce.getCause();
+					soe.setCauseString(wdslexc.getMessage());
+				}else {
+					soe.setCauseString(sce.getMessage());
+				}
+				
+			}else if(cause instanceof RequestFailedException_Exception){
+				RequestFailedException_Exception rfe = (RequestFailedException_Exception)cause;
+				soe.setCauseString(rfe.getMessage());
+			}else {
+				soe.setCauseString(cause.getMessage());
+			}
+		}
+		exchange.getMessage().setBody(soe);
 	}
 }
