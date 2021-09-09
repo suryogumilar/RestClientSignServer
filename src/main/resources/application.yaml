@@ -21,3 +21,5 @@ spring:
 camel:
   springboot:
     :main-run-controller: true
+
+security.enable-csrf: ${enable-csrf}

@@ -1,5 +1,7 @@
 package sg.lab.RestClientSignServer.routes;
 
+import java.util.Map;
+
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.rest.RestBindingMode;
@@ -15,7 +17,10 @@ public class RestRouterForTest extends RouteBuilder{
 
 	@Override
 	public void configure() throws Exception {
-		restConfiguration().component("servlet").bindingMode(RestBindingMode.json)
+		restConfiguration()
+		//.component("netty4-http")
+		.component("servlet")
+		.bindingMode(RestBindingMode.json)
 		.dataFormatProperty("prettyPrint", "true");
 		
 		rest("ClientWSService/testhello").description("proces sod")
@@ -27,6 +32,13 @@ public class RestRouterForTest extends RouteBuilder{
 	}
 	
 	private void justHello(Exchange exchange) {
+		Map<String, Object> headers = exchange.getIn().getHeaders();
+		String headermap = "\n";
+		for(String key : headers.keySet()) {
+			headermap+=key+":"+headers.get(key)+"\n";
+		}
+		logger.info("headermap="+headermap);
+		
 		Object body = exchange.getMessage().getBody();
 		TestHelloResponse helloResponse = new TestHelloResponse();
 		helloResponse.setHello(""+body);

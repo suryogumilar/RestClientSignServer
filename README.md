@@ -63,22 +63,34 @@ test koneksi melalui
 
 info ini diperlukan untuk mendaftarkan akses username(CN). terdapat dalam main class file `RestClientSignServerApplication`   
 
-java envi = `CN_LIST` 
+List CN yang terdaftar dalam truststore dipisahkan oleh karakter ':'.
+
+java envi = `CN_LIST`   
+
+contoh entri:
+`CN_LIST=ss.gehirn.org:seele browser`
 
 envi lainnya yang perlu diset:
- - CN_LIST
+ - CN_LIST *sudah dijelaskan di atas*
  - key-alias
  - key-store-passwd
  - key-store-type
  - posisi-key-store
  - posisi-trust-store
  - trust-store-passwd
+ - enable-csrf
  - UNICODE_VERSION
  - WORKER_NAME
  - WSDL_LOC
 
+enable-csrf diset ke false (disable) jika ingin service bermethode POST bisa diakses client beda site, jika opsi ini diaktifkan, CN client mungkin harus disamakan dengan hostname service rest ini.   
+
+Untuk method GET *enable-csrf* tidak berpengaruh. Service yang didefinisikan dengan method get tetap bisa diakses walau opsi ini *true* maupun *false*.
 
 #### referensi
  - https://www.baeldung.com/spring-boot-https-self-signed-certificate
  - https://www.baeldung.com/x-509-authentication-in-spring-security
  - https://www.gitmemory.com/issue/postmanlabs/postman-app-support/9751/803756371
+ - https://stackoverflow.com/questions/51363021/spring-security-x509-403-forbidden
+ - https://stackoverflow.com/questions/44824382/how-to-disable-csrf-in-spring-using-application-properties/45383128
+ - https://owasp.org/www-community/attacks/csrf

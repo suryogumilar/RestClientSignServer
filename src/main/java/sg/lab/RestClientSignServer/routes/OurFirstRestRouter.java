@@ -2,6 +2,7 @@ package sg.lab.RestClientSignServer.routes;
 
 import java.net.MalformedURLException;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
@@ -31,7 +32,9 @@ public class OurFirstRestRouter extends RouteBuilder{
 	SignServerWsServiceInterface signServerWsService;
 	@Override
 	public void configure() throws Exception {
-		restConfiguration().component("servlet").bindingMode(RestBindingMode.json)
+		restConfiguration().component("servlet")
+		//.component("netty4-http")
+		.bindingMode(RestBindingMode.json)
 		.dataFormatProperty("prettyPrint", "true")
 		//.contextPath("/singserver/rest/v1")
 		//.host("localhost").port(8089)
@@ -70,6 +73,13 @@ public class OurFirstRestRouter extends RouteBuilder{
 		exchange.getMessage().setBody(podResp);
 	}
 	private void getProcessSodFromRequestWS(Exchange exchange) {
+		Map<String, Object> headers = exchange.getIn().getHeaders();
+		String headermap = "\n";
+		for(String key : headers.keySet()) {
+			headermap+=key+":"+headers.get(key)+"\n";
+		}
+		logger.info("headermap="+headermap);
+		
 		ProcessSod pod = (ProcessSod)exchange.getMessage().getBody();
 		logger.info("pod = "+pod);
 		
