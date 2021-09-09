@@ -3,7 +3,11 @@ server:
     enabled: true
     key-store: "${posisi-key-store}"
     key-store-password: "${key-store-passwd}"
-    key-alias: ${key-alias}
+    key-alias: "${key-alias}"
+    key-store-type: "${key-store-type}"
+    trust-store: "${posisi-trust-store}"
+    trust-store-password: "${trust-store-passwd}"
+    client-auth: "need"
   port: 8089
   servlet:
     context-path: "/singserver/rest/v1"
