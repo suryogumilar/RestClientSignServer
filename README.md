@@ -87,6 +87,25 @@ enable-csrf diset ke false (disable) jika ingin service bermethode POST bisa dia
 
 Untuk method GET *enable-csrf* tidak berpengaruh. Service yang didefinisikan dengan method get tetap bisa diakses walau opsi ini *true* maupun *false*.
 
+#### contoh script
+
+```sh
+#/bin/sh
+export CN_LIST='seele browser:ss.gehirn.org'
+export enable_csrf=false
+export key_alias=1
+export key_store_passwd=*****
+export key_store_type=PKCS12
+export posisi_key_store=/mnt/forrest/certificate.p12
+export posisi_trust_store=/mnt/forrest/truststore_rest_service.jks
+export trust_store_passwd=*****
+export UNICODE_VERSION=040000
+export WORKER_NAME=MRTDSODSigner
+export WSDL_LOC=https://ss.gehirn.org:8443/signserver/ClientWSService/ClientWS?wsdl
+cd /usr/src/app/
+java -Djavax.net.ssl.trustStore=/mnt/forss/cacerts_4_java_apps.jks -Djavax.net.ssl.trustStorePassword=**** -Djavax.net.ssl.keyStorePassword=**** -Djavax.net.ssl.keyStore=/mnt/forss/mrtdauth_keystore.jks -jar ./apps.jar
+```
+
 #### referensi
  - https://www.baeldung.com/spring-boot-https-self-signed-certificate
  - https://www.baeldung.com/x-509-authentication-in-spring-security
@@ -94,3 +113,4 @@ Untuk method GET *enable-csrf* tidak berpengaruh. Service yang didefinisikan den
  - https://stackoverflow.com/questions/51363021/spring-security-x509-403-forbidden
  - https://stackoverflow.com/questions/44824382/how-to-disable-csrf-in-spring-using-application-properties/45383128
  - https://owasp.org/www-community/attacks/csrf
+ - https://www.baeldung.com/executable-jar-with-maven

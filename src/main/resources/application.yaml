@@ -1,12 +1,12 @@
 server:
   ssl:
     enabled: true
-    key-store: "${posisi-key-store}"
-    key-store-password: "${key-store-passwd}"
-    key-alias: "${key-alias}"
-    key-store-type: "${key-store-type}"
-    trust-store: "${posisi-trust-store}"
-    trust-store-password: "${trust-store-passwd}"
+    key-store: "${posisi_key_store}"
+    key-store-password: "${key_store_passwd}"
+    key-alias: "${key_alias}"
+    key-store-type: "${key_store_type}"
+    trust-store: "${posisi_trust_store}"
+    trust-store-password: "${trust_store_passwd}"
     client-auth: "need"
   port: 8089
   servlet:
@@ -15,6 +15,7 @@ server:
 spring:
   main: 
     banner-mode: "off"
+    web-application-type: none
   activemq:
     broker-url:tcp://127.0.0.1:61616
     
@@ -22,4 +23,4 @@ camel:
   springboot:
     :main-run-controller: true
 
-security.enable-csrf: ${enable-csrf}
+security.enable-csrf: ${enable_csrf}
