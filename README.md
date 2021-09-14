@@ -114,3 +114,8 @@ java -Djavax.net.ssl.trustStore=/mnt/forss/cacerts_4_java_apps.jks -Djavax.net.s
  - https://stackoverflow.com/questions/44824382/how-to-disable-csrf-in-spring-using-application-properties/45383128
  - https://owasp.org/www-community/attacks/csrf
  - https://www.baeldung.com/executable-jar-with-maven
+ - https://stackoverflow.com/questions/37698473/spring-boot-control-target-jar-file-name
+ - https://stackoverflow.com/questions/33022827/spring-boot-app-not-picking-up-application-properties
+ - https://github.com/spring-projects/spring-boot/issues/3477
+ - https://stackoverflow.com/questions/4238944/controlling-maven-final-name-of-jar-artifact
+ - https://www.studytonight.com/post/solved-caused-by-javalangclassnotfoundexception-javaxxmlwswebservicefeature-in-java-11

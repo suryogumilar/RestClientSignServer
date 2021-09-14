@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -21,6 +22,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 @Configuration
 @ComponentScan("sg.lab.RestClientSignServer")
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@PropertySource(value = "classpath:application.yaml", factory = YamlPropertySourceFactory.class)
 public class RestClientSignServerApplication extends WebSecurityConfigurerAdapter {
 	Logger logger = LoggerFactory.getLogger(RestClientSignServerApplication.class);
 	@Value("${security.enable-csrf}")

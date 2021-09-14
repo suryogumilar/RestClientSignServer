@@ -15,7 +15,7 @@ server:
 spring:
   main: 
     banner-mode: "off"
-    web-application-type: none
+    #web-application-type: none
   activemq:
     broker-url:tcp://127.0.0.1:61616
     
